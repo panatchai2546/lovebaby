@@ -8,10 +8,27 @@
         body {
             text-align: center;
             font-family: Arial, sans-serif;
+            margin: 0;
+            overflow: hidden;
+            background-color: #f0f8ff;
+            height: 100vh;
+            position: relative;
         }
+
         p {
             text-align: left;
             font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #cat {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-image: url('memebee.jpg'); /* เปลี่ยนเป็น path ของรูปภาพแมว */
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
         }
     </style>
 </head>
@@ -25,5 +42,42 @@
        แล้วเจอกันที่ตลาดนะ เจ้าเหมียวน้อยที่น่ารักของพี่
        พี่คอยให้กำลังใจนะครับ แล้วเจอกันที่ตลาดนะ เจ้าเหมียวน้อยที่น่ารักของพี่
     </p>
+    <div id="cat"></div>
+    <script>
+        const cat = document.getElementById('cat');
+        let x = 0;
+        let y = 0;
+        let dx = 2; // ความเร็วในทิศทาง X
+        let dy = 2; // ความเร็วในทิศทาง Y
+
+        function animate() {
+            const catWidth = cat.offsetWidth;
+            const catHeight = cat.offsetHeight;
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            // อัพเดทตำแหน่ง
+            x += dx;
+            y += dy;
+
+            // ตรวจสอบการชนขอบและเปลี่ยนทิศทาง
+            if (x <= 0 || x + catWidth >= screenWidth) {
+                dx *= -1; // เปลี่ยนทิศทาง X
+            }
+            if (y <= 0 || y + catHeight >= screenHeight) {
+                dy *= -1; // เปลี่ยนทิศทาง Y
+            }
+
+            // ตั้งค่าตำแหน่งใหม่
+            cat.style.left = `${x}px`;
+            cat.style.top = `${y}px`;
+
+            // เรียกใช้งานฟังก์ชันซ้ำ
+            requestAnimationFrame(animate);
+        }
+
+        // เริ่มการเคลื่อนไหว
+        animate();
+    </script>
 </body>
 </html>
